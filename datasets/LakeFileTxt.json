@@ -1,0 +1,88 @@
+{
+	"name": "LakeFileTxt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsADLS",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"storageurl": {
+					"value": "@dataset().storageuri",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			},
+			"Directory": {
+				"type": "string"
+			},
+			"storageuri": {
+				"type": "string",
+				"defaultValue": "https://hapdatastorageactdev.dfs.core.windows.net"
+			},
+			"container": {
+				"type": "string",
+				"defaultValue": "synapse"
+			}
+		},
+		"folder": {
+			"name": "SparkTransfer"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().Directory",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().container",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "City",
+				"type": "String"
+			},
+			{
+				"name": "State",
+				"type": "String"
+			},
+			{
+				"name": "Zip",
+				"type": "String"
+			},
+			{
+				"name": "Latitude",
+				"type": "String"
+			},
+			{
+				"name": "Longitude",
+				"type": "String"
+			},
+			{
+				"name": "Timezone",
+				"type": "String"
+			},
+			{
+				"name": "DST",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

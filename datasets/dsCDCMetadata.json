@@ -1,0 +1,99 @@
+{
+	"name": "dsCDCMetadata",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsMDPapp",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"server": {
+					"value": "@dataset().server",
+					"type": "Expression"
+				},
+				"dbname": {
+					"value": "@dataset().db",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"db": {
+				"type": "string"
+			},
+			"server": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "DeltaStoreKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "BatchGroupId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "BatchRunId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "IntegrationControlKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FeedKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CDCSourceObjectName",
+				"type": "varchar"
+			},
+			{
+				"name": "FeedCDCType",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FeedCDCAttribute",
+				"type": "varchar"
+			},
+			{
+				"name": "FeedCDCValue",
+				"type": "varchar"
+			},
+			{
+				"name": "LastRunId",
+				"type": "varchar"
+			},
+			{
+				"name": "UpdateCDCMetadata",
+				"type": "bit"
+			},
+			{
+				"name": "UpdateCDCMetadataDateTime",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "InsertTimeStamp",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "app",
+			"table": "DeltaStore"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

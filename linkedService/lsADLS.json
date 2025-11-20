@@ -1,0 +1,21 @@
+{
+	"name": "lsADLS",
+	"properties": {
+		"parameters": {
+			"storageurl": {
+				"type": "string",
+				"defaultValue": "https://sndffcinfst4401.dfs.core.windows.net "
+			}
+		},
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "@{linkedService().storageurl}"
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/linkedservices"
+}

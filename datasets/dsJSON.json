@@ -1,0 +1,96 @@
+{
+	"name": "dsJSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsFinOpsADLS",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"storageurl": {
+					"value": "@dataset().storageuri",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"paraFile": {
+				"type": "string"
+			},
+			"paraContainer": {
+				"type": "string"
+			},
+			"storageuri": {
+				"type": "string",
+				"defaultValue": "https://hapdatastorageactdev.dfs.core.windows.net"
+			}
+		},
+		"folder": {
+			"name": "ADLS"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().paraFile",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().paraContainer",
+					"type": "Expression"
+				}
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"jsonSchemaSemanticVersion": {
+					"type": "string"
+				},
+				"imports": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"corpusPath": {
+								"type": "string"
+							}
+						}
+					}
+				},
+				"definitions": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"entityName": {
+								"type": "string"
+							},
+							"hasAttributes": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"name": {
+											"type": "string"
+										},
+										"purpose": {
+											"type": "string"
+										},
+										"dataFormat": {
+											"type": "string"
+										}
+									}
+								}
+							},
+							"displayName": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

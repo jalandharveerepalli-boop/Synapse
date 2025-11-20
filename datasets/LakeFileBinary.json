@@ -1,0 +1,54 @@
+{
+	"name": "LakeFileBinary",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsADLS",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"storageurl": {
+					"value": "@dataset().stroageuri",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"Directory": {
+				"type": "string"
+			},
+			"stroageuri": {
+				"type": "string",
+				"defaultValue": "https://hapdatastorageactdev.dfs.core.windows.net"
+			},
+			"container": {
+				"type": "string",
+				"defaultValue": "synapse"
+			},
+			"file": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SparkTransfer"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().file",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().Directory",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().container",
+					"type": "Expression"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

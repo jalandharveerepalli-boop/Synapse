@@ -1,0 +1,43 @@
+{
+	"name": "lsAmazonS3",
+	"properties": {
+		"parameters": {
+			"AccessKey": {
+				"type": "string",
+				"defaultValue": "AKIAZLGZKNL7ESGHPV2P"
+			},
+			"KeySecretName": {
+				"type": "string",
+				"defaultValue": "AmazonS3KeySecret"
+			},
+			"keyvaultdnsname": {
+				"type": "string",
+				"defaultValue": "https://sndrsdkv1401.vault.azure.net/"
+			}
+		},
+		"annotations": [],
+		"type": "AmazonS3",
+		"typeProperties": {
+			"serviceUrl": "",
+			"accessKeyId": "@{linkedService().AccessKey}",
+			"secretAccessKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Keys",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"keyvaultdnsname": {
+							"value": "@linkedService().keyvaultdnsname",
+							"type": "Expression"
+						}
+					}
+				},
+				"secretName": {
+					"value": "@linkedService().KeySecretName",
+					"type": "Expression"
+				}
+			},
+			"authenticationType": "AccessKey"
+		}
+	}
+}

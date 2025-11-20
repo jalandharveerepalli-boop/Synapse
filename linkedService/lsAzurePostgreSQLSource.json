@@ -1,0 +1,52 @@
+{
+	"name": "lsAzurePostgreSQLSource",
+	"properties": {
+		"parameters": {
+			"ServerName": {
+				"type": "String"
+			},
+			"DatabaseName": {
+				"type": "String"
+			},
+			"UserName": {
+				"type": "String"
+			},
+			"Port": {
+				"type": "String"
+			},
+			"Secret": {
+				"type": "String"
+			},
+			"KeyVault": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzurePostgreSql",
+		"typeProperties": {
+			"connectionString": "Host=@{linkedService().ServerName};Port=3306;Database=@{linkedService().DatabaseName};UID=@{linkedService().UserName};EncryptionMethod=0",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Keys",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"keyvaultdnsname": {
+							"value": "@linkedService().KeyVault",
+							"type": "Expression"
+						}
+					}
+				},
+				"secretName": {
+					"value": "@{linkedService().Secret}",
+					"type": "Expression"
+				}
+			}
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/linkedservices"
+}

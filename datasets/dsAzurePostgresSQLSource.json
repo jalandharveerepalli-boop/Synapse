@@ -1,0 +1,77 @@
+{
+	"name": "dsAzurePostgresSQLSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsAzurePostgreSQLSource",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ServerName": {
+					"value": "@dataset().ServerName",
+					"type": "Expression"
+				},
+				"DatabaseName": {
+					"value": "@dataset().DatabaseName",
+					"type": "Expression"
+				},
+				"UserName": {
+					"value": "@dataset().User",
+					"type": "Expression"
+				},
+				"Port": {
+					"value": "@dataset().Port",
+					"type": "Expression"
+				},
+				"Secret": {
+					"value": "@dataset().Secret",
+					"type": "Expression"
+				},
+				"KeyVault": {
+					"value": "@dataset().KeyVault",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"Schema": {
+				"type": "string"
+			},
+			"Table": {
+				"type": "string"
+			},
+			"DatabaseName": {
+				"type": "string"
+			},
+			"ServerName": {
+				"type": "string"
+			},
+			"User": {
+				"type": "string"
+			},
+			"Secret": {
+				"type": "string"
+			},
+			"Port": {
+				"type": "string"
+			},
+			"KeyVault": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "AzurePostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().Schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().Table",
+				"type": "Expression"
+			}
+		}
+	}
+}

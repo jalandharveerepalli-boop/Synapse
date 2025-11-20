@@ -1,0 +1,55 @@
+{
+	"name": "dsMDP",
+	"properties": {
+		"description": "Single generic dataset used to get and set all database metadata.",
+		"linkedServiceName": {
+			"referenceName": "lsMDPapp_Azure",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"server": {
+					"value": "@dataset().server",
+					"type": "Expression"
+				},
+				"dbname": {
+					"value": "@dataset().db",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"server": {
+				"type": "string",
+				"defaultValue": "devcprsq1401.database.windows.net"
+			},
+			"db": {
+				"type": "string",
+				"defaultValue": "devcprdb1401"
+			},
+			"schema": {
+				"type": "string",
+				"defaultValue": "dbo"
+			},
+			"table": {
+				"type": "string",
+				"defaultValue": "Dummy"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

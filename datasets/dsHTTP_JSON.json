@@ -1,0 +1,39 @@
+{
+	"name": "dsHTTP_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "IsHTTPSource",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"baseurl": {
+					"value": "@dataset().basurl",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"basurl": {
+				"type": "string"
+			},
+			"relativeurl": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "Other"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().relativeurl",
+					"type": "Expression"
+				}
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

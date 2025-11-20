@@ -1,0 +1,74 @@
+{
+	"name": "dsExcelBlob",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsBlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"storageuri": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "BLOB"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Raw Data",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "fia"
+			}
+		},
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

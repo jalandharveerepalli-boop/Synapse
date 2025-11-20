@@ -1,0 +1,55 @@
+{
+	"name": "dsDestinationTable",
+	"properties": {
+		"description": "Single generic dataset used to get and set all database metadata.",
+		"linkedServiceName": {
+			"referenceName": "lsSynapse",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"Server": {
+					"value": "@dataset().server",
+					"type": "Expression"
+				},
+				"DB": {
+					"value": "@dataset().db",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"db": {
+				"type": "string",
+				"defaultValue": "hapsqlpooldev"
+			},
+			"server": {
+				"type": "string",
+				"defaultValue": "tcp:hapsynapseworkspacedev.sql.azuresynapse.net,1433"
+			},
+			"table": {
+				"type": "string",
+				"defaultValue": "@activity('Get Load Table').output.firstRow.TABLE_NAME"
+			},
+			"schema": {
+				"type": "string",
+				"defaultValue": "stage"
+			}
+		},
+		"folder": {
+			"name": "CSV"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,91 @@
+{
+	"name": "dsWarehouseEvent",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsMDPapp",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"server": {
+					"value": "@dataset().server",
+					"type": "Expression"
+				},
+				"dbname": {
+					"value": "@dataset().db",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"server": {
+				"type": "string"
+			},
+			"db": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "EventKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FeedId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "BatchRunId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "BatchGroupId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "StepId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Measurement",
+				"type": "varchar"
+			},
+			{
+				"name": "Event",
+				"type": "varchar"
+			},
+			{
+				"name": "RowsAffected",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EventDurationInMs",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EventDateTime",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "WarehouseSource",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "app",
+			"table": "WarehouseEvent"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

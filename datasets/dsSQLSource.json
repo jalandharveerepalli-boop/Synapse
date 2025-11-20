@@ -1,0 +1,77 @@
+{
+	"name": "dsSQLSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsSQLSource",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"DatabaseName": {
+					"value": "@dataset().db",
+					"type": "Expression"
+				},
+				"ServerName": {
+					"value": "@dataset().server",
+					"type": "Expression"
+				},
+				"Secret": {
+					"value": "@dataset().secret",
+					"type": "Expression"
+				},
+				"UserName": {
+					"value": "@dataset().user",
+					"type": "Expression"
+				},
+				"keyvault": {
+					"value": "@dataset().keyvaultdnsname",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"server": {
+				"type": "string",
+				"defaultValue": "sql-mdp-dev.database.windows.net   "
+			},
+			"db": {
+				"type": "string",
+				"defaultValue": "sqldb-src-dev"
+			},
+			"user": {
+				"type": "string",
+				"defaultValue": "username"
+			},
+			"secret": {
+				"type": "string",
+				"defaultValue": "keyvault"
+			},
+			"keyvaultdnsname": {
+				"type": "string"
+			},
+			"schema": {
+				"type": "string",
+				"defaultValue": "dbo"
+			},
+			"table": {
+				"type": "string",
+				"defaultValue": "dummy"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

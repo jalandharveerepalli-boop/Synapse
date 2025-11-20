@@ -1,0 +1,61 @@
+{
+	"name": "dsSharepointList_XML",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "IsHTTPSource",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"baseurl": {
+					"value": "@dataset().baseurl",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"baseurl": {
+				"type": "string"
+			},
+			"server": {
+				"type": "string"
+			},
+			"db": {
+				"type": "string"
+			},
+			"user": {
+				"type": "string"
+			},
+			"secret": {
+				"type": "string"
+			},
+			"keyvaultdnsname": {
+				"type": "string"
+			},
+			"schema": {
+				"type": "string"
+			},
+			"table": {
+				"type": "string"
+			},
+			"tenantid": {
+				"type": "string"
+			},
+			"connectionquery": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "Other"
+		},
+		"annotations": [],
+		"type": "Xml",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().connectionquery",
+					"type": "Expression"
+				}
+			}
+		}
+	}
+}

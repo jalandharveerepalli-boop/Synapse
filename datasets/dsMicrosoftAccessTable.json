@@ -1,0 +1,59 @@
+{
+	"name": "dsMicrosoftAccessTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsMSAccess",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"DBName": {
+					"value": "@dataset().DBName",
+					"type": "Expression"
+				},
+				"UserName": {
+					"value": "@dataset().UserName",
+					"type": "Expression"
+				},
+				"KeyVaultDNSName": {
+					"value": "@dataset().KeyVaultDNSName",
+					"type": "Expression"
+				},
+				"KeyVaultSecret": {
+					"value": "@dataset().KeyVaultSecret",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"DBName": {
+				"type": "string",
+				"defaultValue": "C:\\Temp\\WQNLTData.accdb"
+			},
+			"Table": {
+				"type": "string",
+				"defaultValue": "tblAppGroup"
+			},
+			"UserName": {
+				"type": "string"
+			},
+			"KeyVaultDNSName": {
+				"type": "string"
+			},
+			"KeyVaultSecret": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "Other"
+		},
+		"annotations": [],
+		"type": "MicrosoftAccessTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": {
+				"value": "@dataset().Table",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

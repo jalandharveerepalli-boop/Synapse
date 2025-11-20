@@ -1,0 +1,126 @@
+{
+	"name": "dsADLSfile_params",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsADLS",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"storageurl": {
+					"value": "@dataset().storageurl",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"blobfolder": {
+				"type": "string"
+			},
+			"blobcontainer": {
+				"type": "string",
+				"defaultValue": "landing"
+			},
+			"FileName": {
+				"type": "string"
+			},
+			"storageurl": {
+				"type": "string",
+				"defaultValue": "https://lbsstdatalake001.dfs.core.windows.net"
+			},
+			"CompressionType": {
+				"type": "string",
+				"defaultValue": "None"
+			},
+			"ColumnDelimiter": {
+				"type": "string",
+				"defaultValue": ","
+			},
+			"RowDelimiter": {
+				"type": "string",
+				"defaultValue": "Default"
+			},
+			"Encoding": {
+				"type": "string",
+				"defaultValue": "UTF-8"
+			},
+			"EscapeCharacter": {
+				"type": "string",
+				"defaultValue": "\\"
+			},
+			"QuoteCharacter": {
+				"type": "string",
+				"defaultValue": "\""
+			},
+			"FirstRowAsHeader": {
+				"type": "bool",
+				"defaultValue": true
+			},
+			"NullValue": {
+				"type": "string"
+			},
+			"CompressionLevel": {
+				"type": "string",
+				"defaultValue": "Optimal"
+			}
+		},
+		"folder": {
+			"name": "ADLS"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().blobfolder",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().blobcontainer",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": {
+				"value": "@dataset().ColumnDelimiter",
+				"type": "Expression"
+			},
+			"rowDelimiter": {
+				"value": "@dataset().RowDelimiter",
+				"type": "Expression"
+			},
+			"compressionCodec": {
+				"value": "@dataset().CompressionType",
+				"type": "Expression"
+			},
+			"compressionLevel": {
+				"value": "@dataset().CompressionLevel",
+				"type": "Expression"
+			},
+			"encodingName": {
+				"value": "@dataset().Encoding",
+				"type": "Expression"
+			},
+			"escapeChar": {
+				"value": "@dataset().EscapeCharacter",
+				"type": "Expression"
+			},
+			"firstRowAsHeader": {
+				"value": "@dataset().FirstRowAsHeader",
+				"type": "Expression"
+			},
+			"nullValue": {
+				"value": "@dataset().NullValue",
+				"type": "Expression"
+			},
+			"quoteChar": {
+				"value": "@dataset().QuoteCharacter",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

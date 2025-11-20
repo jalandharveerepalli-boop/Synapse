@@ -1,0 +1,57 @@
+{
+	"name": "IsOracle",
+	"properties": {
+		"parameters": {
+			"Host": {
+				"type": "string",
+				"defaultValue": "10.57.56.154"
+			},
+			"ServiceName": {
+				"type": "string"
+			},
+			"Port": {
+				"type": "string",
+				"defaultValue": "1630"
+			},
+			"UserName": {
+				"type": "string",
+				"defaultValue": "wqrd_read_only"
+			},
+			"SecretName": {
+				"type": "string",
+				"defaultValue": "WIMS-midasanp"
+			},
+			"keyvaultdnsname": {
+				"type": "string",
+				"defaultValue": " https://sndrsdkv1401.vault.azure.net/"
+			}
+		},
+		"annotations": [],
+		"type": "Oracle",
+		"typeProperties": {
+			"connectionString": "host=@{linkedService().Host};port=@{linkedService().Port};sid=@{linkedService().ServiceName};user id=@{linkedService().UserName}",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Keys",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"keyvaultdnsname": {
+							"value": "@linkedService().keyvaultdnsname",
+							"type": "Expression"
+						}
+					}
+				},
+				"secretName": {
+					"value": "@linkedService().SecretName",
+					"type": "Expression"
+				}
+			}
+		},
+		"connectVia": {
+			"referenceName": "SHIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/linkedservices"
+}

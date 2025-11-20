@@ -1,0 +1,54 @@
+{
+	"name": "dsSynapse",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsSynapse",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"Server": {
+					"value": "@dataset().server",
+					"type": "Expression"
+				},
+				"DB": {
+					"value": "@dataset().db",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"server": {
+				"type": "string",
+				"defaultValue": "tcp:devcprinfas1401.sql.azuresynapse.net,1433"
+			},
+			"db": {
+				"type": "string",
+				"defaultValue": "devcprsp1401"
+			},
+			"schema": {
+				"type": "string",
+				"defaultValue": "dbo"
+			},
+			"table": {
+				"type": "string",
+				"defaultValue": "dummy"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

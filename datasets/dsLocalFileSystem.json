@@ -1,0 +1,55 @@
+{
+	"name": "dsLocalFileSystem",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsLocalFileSystem",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"Host": {
+					"value": "@dataset().Host",
+					"type": "Expression"
+				},
+				"UserName": {
+					"value": "@dataset().UserName",
+					"type": "Expression"
+				},
+				"KeySecret": {
+					"value": "@dataset().KeySecret",
+					"type": "Expression"
+				},
+				"KeyVault": {
+					"value": "@dataset().KeyVault",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"Host": {
+				"type": "string",
+				"defaultValue": "\\\\eamerfiler05.prodds.ntnl\\lun76\\BRITE\\ESG\\WQNLT_DataMigFiles"
+			},
+			"UserName": {
+				"type": "string",
+				"defaultValue": "PRODDS\\EARegulatoryDP"
+			},
+			"KeySecret": {
+				"type": "string",
+				"defaultValue": "WQLogandTrack"
+			},
+			"KeyVault": {
+				"type": "string",
+				"defaultValue": "https://sndrsdkv1401.vault.azure.net/"
+			}
+		},
+		"folder": {
+			"name": "Custom"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation"
+			}
+		}
+	}
+}

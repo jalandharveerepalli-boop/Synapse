@@ -1,0 +1,50 @@
+{
+	"name": "lsDataverse",
+	"properties": {
+		"type": "CommonDataServiceForApps",
+		"parameters": {
+			"ServiceURI": {
+				"type": "string",
+				"defaultValue": ""
+			},
+			"Secret": {
+				"type": "string",
+				"defaultValue": ""
+			},
+			"ServicePrincipal": {
+				"type": "string",
+				"defaultValue": ""
+			},
+			"keyvault": {
+				"type": "string",
+				"defaultValue": ""
+			}
+		},
+		"annotations": [],
+		"typeProperties": {
+			"deploymentType": "Online",
+			"serviceUri": "@linkedService().ServiceURI",
+			"authenticationType": "AADServicePrincipal",
+			"servicePrincipalCredentialType": "ServicePrincipalKey",
+			"servicePrincipalId": "@linkedService().ServicePrincipal",
+			"servicePrincipalCredential": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Keys",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"keyvaultdnsname": {
+							"value": "@linkedService().keyvault",
+							"type": "Expression"
+						}
+					}
+				},
+				"secretName": "@linkedService().Secret"
+			}
+		},
+		"connectVia": {
+			"referenceName": "SHIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

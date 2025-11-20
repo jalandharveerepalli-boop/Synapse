@@ -1,0 +1,36 @@
+{
+	"name": "dsLoadFileBinary",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsADLS_Azure",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"storageurl": {
+					"value": "@dataset().storageuri",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"storageuri": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "CSV"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@item().name",
+					"type": "Expression"
+				},
+				"fileSystem": "import"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

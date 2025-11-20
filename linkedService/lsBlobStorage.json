@@ -1,0 +1,17 @@
+{
+	"name": "lsBlobStorage",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"parameters": {
+			"storagename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"serviceEndpoint": "@{concat('https://',linkedService().storagename,'.blob.core.windows.net')}",
+			"accountKind": "StorageV2"
+		}
+	}
+}

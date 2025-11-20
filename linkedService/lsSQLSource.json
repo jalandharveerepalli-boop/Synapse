@@ -1,0 +1,54 @@
+{
+	"name": "lsSQLSource",
+	"properties": {
+		"parameters": {
+			"DatabaseName": {
+				"type": "string",
+				"defaultValue": "sndffcdb4401"
+			},
+			"ServerName": {
+				"type": "string",
+				"defaultValue": "sndffcsq4401.database.windows.net"
+			},
+			"Secret": {
+				"type": "string",
+				"defaultValue": "mockdb-siti"
+			},
+			"UserName": {
+				"type": "string",
+				"defaultValue": "adminuser"
+			},
+			"keyvault": {
+				"type": "string",
+				"defaultValue": "http://SNDFFCINFKV4401.vault.azure.net/"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=@{linkedService().ServerName};Initial Catalog=@{linkedService().DatabaseName};User ID=@{linkedService().UserName}",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Keys",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"keyvaultdnsname": {
+							"value": "@linkedService().keyvault",
+							"type": "Expression"
+						}
+					}
+				},
+				"secretName": {
+					"value": "@linkedService().Secret",
+					"type": "Expression"
+				}
+			}
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/linkedservices"
+}
