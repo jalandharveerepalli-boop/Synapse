@@ -1,0 +1,15 @@
+{
+	"name": "API",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "REstAPI",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "https://reqres.in/api/users"
+		},
+		"schema": []
+	}
+}
