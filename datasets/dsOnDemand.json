@@ -1,0 +1,53 @@
+{
+	"name": "dsOnDemand",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsSynaseOnDemand",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"OnDemandServer": {
+					"value": "@dataset().OnDemandServer",
+					"type": "Expression"
+				},
+				"OnDemandDatabase": {
+					"value": "@dataset().OnDemandDatabase",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"OnDemandServer": {
+				"type": "string",
+				"defaultValue": "mvpssotmdpsw1001-ondemand.sql.azuresynapse.net"
+			},
+			"OnDemandDatabase": {
+				"type": "string",
+				"defaultValue": "MDPOndemand"
+			},
+			"Schema": {
+				"type": "string",
+				"defaultValue": "sys"
+			},
+			"Object": {
+				"type": "string",
+				"defaultValue": "all_objects"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().Schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().Object",
+				"type": "Expression"
+			}
+		}
+	}
+}

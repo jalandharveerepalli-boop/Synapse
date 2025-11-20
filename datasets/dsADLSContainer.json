@@ -1,0 +1,39 @@
+{
+	"name": "dsADLSContainer",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsADLS_Azure",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"storageurl": {
+					"value": "@dataset().storageuri",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"storageuri": {
+				"type": "string"
+			},
+			"container": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ADLS"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "*",
+				"folderPath": "*",
+				"fileSystem": {
+					"value": "@dataset().container",
+					"type": "Expression"
+				}
+			}
+		}
+	}
+}

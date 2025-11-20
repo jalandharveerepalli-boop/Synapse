@@ -1,0 +1,99 @@
+{
+	"name": "dsJsonDefinition",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsMDPapp",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"server": {
+					"value": "@dataset().server",
+					"type": "Expression"
+				},
+				"dbname": {
+					"value": "@dataset().db",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"server": {
+				"type": "string"
+			},
+			"db": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "JsonDefinitionKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "StorageExplorerKey",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "FileStorageGroup",
+				"type": "varchar"
+			},
+			{
+				"name": "FileReference",
+				"type": "varchar"
+			},
+			{
+				"name": "FileEntityName",
+				"type": "varchar"
+			},
+			{
+				"name": "FileColumnName",
+				"type": "varchar"
+			},
+			{
+				"name": "FileColumnPurpose",
+				"type": "varchar"
+			},
+			{
+				"name": "FileColumnDataFormat",
+				"type": "varchar"
+			},
+			{
+				"name": "FileColumnConvertedFormat",
+				"type": "varchar"
+			},
+			{
+				"name": "FileColumnOrder",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DataFactoryName",
+				"type": "varchar"
+			},
+			{
+				"name": "PipelineName",
+				"type": "varchar"
+			},
+			{
+				"name": "PipelineRunId",
+				"type": "varchar"
+			},
+			{
+				"name": "InsertTimeStamp",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "app",
+			"table": "JSONDefinition"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

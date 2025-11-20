@@ -1,0 +1,77 @@
+{
+	"name": "dsMySQLSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsMySQLSource",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"DatabaseName": {
+					"value": "@dataset().DatabaseName",
+					"type": "Expression"
+				},
+				"ServerName": {
+					"value": "@dataset().ServerName",
+					"type": "Expression"
+				},
+				"KeyVaultDNSName": {
+					"value": "@dataset().KeyVault",
+					"type": "Expression"
+				},
+				"Secret": {
+					"value": "@dataset().Secret",
+					"type": "Expression"
+				},
+				"Port": {
+					"value": "@dataset().Port",
+					"type": "Expression"
+				},
+				"UserName": {
+					"value": "@dataset().User",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"DatabaseName": {
+				"type": "string",
+				"defaultValue": "adventureworks"
+			},
+			"ServerName": {
+				"type": "string",
+				"defaultValue": "20.117.226.16"
+			},
+			"User": {
+				"type": "string",
+				"defaultValue": "mdp_reader"
+			},
+			"Port": {
+				"type": "string",
+				"defaultValue": "33123"
+			},
+			"KeyVault": {
+				"type": "string",
+				"defaultValue": "https://devmdpkv1003.vault.azure.net/"
+			},
+			"Secret": {
+				"type": "string",
+				"defaultValue": "mysqlpass"
+			},
+			"Table": {
+				"type": "string",
+				"defaultValue": "employeedepartmenthistory"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": {
+				"value": "@dataset().Table",
+				"type": "Expression"
+			}
+		}
+	}
+}

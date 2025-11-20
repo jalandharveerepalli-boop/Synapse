@@ -1,0 +1,57 @@
+{
+	"name": "lsMySQLSource",
+	"properties": {
+		"parameters": {
+			"DatabaseName": {
+				"type": "string",
+				"defaultValue": "adventureworks"
+			},
+			"ServerName": {
+				"type": "string",
+				"defaultValue": "20.117.226.16"
+			},
+			"KeyVaultDNSName": {
+				"type": "string",
+				"defaultValue": "https://devmdpkv1003.vault.azure.net/"
+			},
+			"Secret": {
+				"type": "string",
+				"defaultValue": "mysqlpass"
+			},
+			"Port": {
+				"type": "string",
+				"defaultValue": "33123"
+			},
+			"UserName": {
+				"type": "string",
+				"defaultValue": "mdp_reader"
+			}
+		},
+		"annotations": [],
+		"type": "MySql",
+		"typeProperties": {
+			"connectionString": "Server=@{linkedService().ServerName};Port=@{linkedService().Port};Database=@{linkedService().DatabaseName};User=@{linkedService().UserName};SSLMode=1;UseSystemTrustStore=0",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Keys",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"keyvaultdnsname": {
+							"value": "@linkedService().KeyVaultDNSName",
+							"type": "Expression"
+						}
+					}
+				},
+				"secretName": {
+					"value": "@linkedService().Secret",
+					"type": "Expression"
+				}
+			}
+		},
+		"connectVia": {
+			"referenceName": "SHIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

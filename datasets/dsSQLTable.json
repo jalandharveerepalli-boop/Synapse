@@ -1,0 +1,73 @@
+{
+	"name": "dsSQLTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsSQLSource",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"DatabaseName": {
+					"value": "@dataset().DatabaseName",
+					"type": "Expression"
+				},
+				"ServerName": {
+					"value": "@dataset().ServerName",
+					"type": "Expression"
+				},
+				"Secret": {
+					"value": "@dataset().secret",
+					"type": "Expression"
+				},
+				"UserName": {
+					"value": "@dataset().user",
+					"type": "Expression"
+				},
+				"keyvault": {
+					"value": "@dataset().keyvaultdnsname",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"DatabaseName": {
+				"type": "string"
+			},
+			"ServerName": {
+				"type": "string"
+			},
+			"keyvaultdnsname": {
+				"type": "string"
+			},
+			"user": {
+				"type": "string"
+			},
+			"secret": {
+				"type": "string"
+			},
+			"table": {
+				"type": "string",
+				"defaultValue": "dummy"
+			},
+			"schema": {
+				"type": "string",
+				"defaultValue": "dbo"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

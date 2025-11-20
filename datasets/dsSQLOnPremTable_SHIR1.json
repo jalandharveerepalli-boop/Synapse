@@ -1,0 +1,78 @@
+{
+	"name": "dsSQLOnPremTable_SHIR1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "IsSQLOnPremSourceSHIR1",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ServerName": {
+					"value": "@dataset().onprem_server",
+					"type": "Expression"
+				},
+				"DatabaseName": {
+					"value": "@dataset().onprem_db",
+					"type": "Expression"
+				},
+				"User": {
+					"value": "@dataset().onprem_user",
+					"type": "Expression"
+				},
+				"Secret": {
+					"value": "@dataset().onprem_secret",
+					"type": "Expression"
+				},
+				"keyvaultdns": {
+					"value": "@dataset().keyvaultdnsname",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"onprem_server": {
+				"type": "string",
+				"defaultValue": "DB-ETD-PRD.corp.com"
+			},
+			"onprem_db": {
+				"type": "string",
+				"defaultValue": "MDPFeed"
+			},
+			"onprem_user": {
+				"type": "string",
+				"defaultValue": "MDP_RO"
+			},
+			"onprem_secret": {
+				"type": "string",
+				"defaultValue": "MetalsPassword"
+			},
+			"keyvaultdnsname": {
+				"type": "string",
+				"defaultValue": "https://hapkeyvaultdev.vault.azure.net/"
+			},
+			"table": {
+				"type": "string",
+				"defaultValue": "dummy"
+			},
+			"schema": {
+				"type": "string",
+				"defaultValue": "dbo"
+			}
+		},
+		"folder": {
+			"name": "Custom"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

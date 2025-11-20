@@ -1,0 +1,46 @@
+{
+	"name": "dsModelJson_Azure_json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsADLS_Azure",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"storageurl": {
+					"value": "@dataset().storageuri",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"Container": {
+				"type": "string"
+			},
+			"Folder": {
+				"type": "string"
+			},
+			"storageuri": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ADLS"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "model.json",
+				"folderPath": {
+					"value": "@dataset().Folder",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().Container",
+					"type": "Expression"
+				}
+			}
+		},
+		"schema": {}
+	}
+}

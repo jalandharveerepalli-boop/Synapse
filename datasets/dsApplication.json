@@ -1,0 +1,89 @@
+{
+	"name": "dsApplication",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsMDPapp",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"server": {
+					"value": "@dataset().server",
+					"type": "Expression"
+				},
+				"dbname": {
+					"value": "@dataset().db",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"server": {
+				"type": "string"
+			},
+			"db": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "FeedCDCMetadataKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "IntegrationControlKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FeedKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CDCSourceObjectName",
+				"type": "varchar"
+			},
+			{
+				"name": "FeedCDCType",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FeedCDCAttribute",
+				"type": "varchar"
+			},
+			{
+				"name": "FeedCDCValue",
+				"type": "varchar"
+			},
+			{
+				"name": "LastRunId",
+				"type": "varchar"
+			},
+			{
+				"name": "UpdateCDCMetadata",
+				"type": "bit"
+			},
+			{
+				"name": "UpdateCDCMetadataDateTime",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "InsertTimeStamp",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "app",
+			"table": "FeedCDCMetadata"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

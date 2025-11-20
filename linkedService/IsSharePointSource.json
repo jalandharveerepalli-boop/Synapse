@@ -1,0 +1,56 @@
+{
+    "name": "IsSharePointSource",
+    "properties": {
+        "description": "Dev SP Source ",
+        "parameters": {
+            "DatabaseName": {
+                "type": "string"
+            },
+            "ServerName": {
+                "type": "string"
+            },
+            "User": {
+                "type": "string"
+            },
+            "Secret": {
+                "type": "string"
+            },
+            "keyvaultdnsname": {
+                "type": "string"
+            },
+            "Tenant": {
+                "type": "string",
+                "defaultValue": "e85feadf-11e7-47bb-a160-43b98dcc96f1"
+            }
+        },
+        "annotations": [],
+        "type": "SharePointOnlineList",
+        "typeProperties": {
+            "siteUrl": "@{concat('https://', linkedService().ServerName, '/sites/', linkedService().DatabaseName)}",
+            "tenantId": "@{linkedService().Tenant}",
+            "servicePrincipalId": "@{linkedService().User}",
+            "servicePrincipalKey": {
+                "type": "AzureKeyVaultSecret",
+                "store": {
+                    "referenceName": "Keys",
+                    "type": "LinkedServiceReference",
+                    "parameters": {
+                        "keyvaultdnsname": {
+                            "value": "@linkedService().keyvaultdnsname",
+                            "type": "Expression"
+                        }
+                    }
+                },
+                "secretName": {
+                    "value": "@linkedService().Secret",
+                    "type": "Expression"
+                }
+            }
+        },
+        "connectVia": {
+            "referenceName": "mdp-shir1",
+            "type": "IntegrationRuntimeReference"
+        }
+    },
+    "type": "Microsoft.Synapse/workspaces/linkedservices"
+}

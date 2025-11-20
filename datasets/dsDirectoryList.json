@@ -1,0 +1,70 @@
+{
+	"name": "dsDirectoryList",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsMDPapp",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"server": {
+					"value": "@dataset().server",
+					"type": "Expression"
+				},
+				"dbname": {
+					"value": "@dataset().db",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"db": {
+				"type": "string"
+			},
+			"server": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LastModified",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "ContentType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BlobType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Length",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "PipelineRunId",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PipelineDateTime",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "temp",
+			"table": "BlobDirectory"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

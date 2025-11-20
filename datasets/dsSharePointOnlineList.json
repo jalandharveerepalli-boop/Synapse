@@ -1,0 +1,74 @@
+{
+	"name": "dsSharePointOnlineList",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "IsSharePointSource",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"DatabaseName": {
+					"value": "@dataset().db",
+					"type": "Expression"
+				},
+				"ServerName": {
+					"value": "@dataset().server",
+					"type": "Expression"
+				},
+				"User": {
+					"value": "@dataset().user",
+					"type": "Expression"
+				},
+				"Secret": {
+					"value": "@dataset().secret",
+					"type": "Expression"
+				},
+				"keyvaultdnsname": {
+					"value": "@dataset().keyvaultdnsname",
+					"type": "Expression"
+				},
+				"Tenant": {
+					"value": "@dataset().tenantid",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"server": {
+				"type": "string"
+			},
+			"db": {
+				"type": "string"
+			},
+			"user": {
+				"type": "string"
+			},
+			"secret": {
+				"type": "string"
+			},
+			"keyvaultdnsname": {
+				"type": "string"
+			},
+			"schema": {
+				"type": "string"
+			},
+			"table": {
+				"type": "string"
+			},
+			"tenantid": {
+				"type": "string",
+				"defaultValue": "e85feadf-11e7-47bb-a160-43b98dcc96f1"
+			}
+		},
+		"folder": {
+			"name": "Other"
+		},
+		"annotations": [],
+		"type": "SharePointOnlineListResource",
+		"schema": [],
+		"typeProperties": {
+			"listName": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
+		}
+	}
+}

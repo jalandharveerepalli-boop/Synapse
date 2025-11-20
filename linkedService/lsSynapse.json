@@ -1,0 +1,25 @@
+{
+	"name": "lsSynapse",
+	"properties": {
+		"parameters": {
+			"Server": {
+				"type": "string",
+				"defaultValue": "sndffcinfas4401"
+			},
+			"DB": {
+				"type": "string",
+				"defaultValue": "sndffcsp4401"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlDW",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=\"@{concat(linkedService().Server,'.sql.azuresynapse.net,1433')}\";Initial Catalog=@{linkedService().DB}"
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/linkedservices"
+}

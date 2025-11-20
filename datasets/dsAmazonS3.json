@@ -1,0 +1,79 @@
+{
+	"name": "dsAmazonS3",
+	"properties": {
+		"description": "S3 dataset params:\nAccessKey app.databaseserver username\nKeysecretName app.databaseserver keyvaultsecret\nBucket app.databaseserver DatabaseServerName\nDirectory app.feed sourceschema\nFilename app.feed sourcetable",
+		"linkedServiceName": {
+			"referenceName": "lsAmazonS3",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"AccessKey": {
+					"value": "@dataset().S3AccessKey",
+					"type": "Expression"
+				},
+				"KeySecretName": {
+					"value": "@dataset().S3KeySecretName",
+					"type": "Expression"
+				},
+				"keyvaultdnsname": {
+					"value": "@dataset().keyvaultdnsname",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"S3Bucket": {
+				"type": "string",
+				"defaultValue": "file-uploads-tst-sroc-service-gov-uk"
+			},
+			"S3Directory": {
+				"type": "string",
+				"defaultValue": "csv"
+			},
+			"S3FileName": {
+				"type": "string",
+				"defaultValue": "transactions.csv"
+			},
+			"S3AccessKey": {
+				"type": "string",
+				"defaultValue": "AKIAZLGZKNL7ESGHPV2P"
+			},
+			"S3KeySecretName": {
+				"type": "string",
+				"defaultValue": "AmazonS3KeySecret"
+			},
+			"keyvaultdnsname": {
+				"type": "string",
+				"defaultValue": "https://sndrsdkv1401.vault.azure.net/"
+			}
+		},
+		"folder": {
+			"name": "Other"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AmazonS3Location",
+				"bucketName": {
+					"value": "@dataset().S3Bucket",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().S3Directory",
+					"type": "Expression"
+				},
+				"fileName": {
+					"value": "@dataset().S3FileName",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"compressionCodec": "gzip",
+			"compressionLevel": "Optimal",
+			"escapeChar": "\\",
+			"firstRowAsHeader": false,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

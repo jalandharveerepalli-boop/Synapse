@@ -1,0 +1,76 @@
+{
+	"name": "lsSalesforceSource",
+	"properties": {
+		"parameters": {
+			"Username": {
+				"type": "string",
+				"defaultValue": "dubdub69-wemw@force.com"
+			},
+			"Secret": {
+				"type": "string",
+				"defaultValue": "salesforcesecret"
+			},
+			"keyvault": {
+				"type": "string",
+				"defaultValue": "https://devmdpkv1003.vault.azure.net/"
+			},
+			"TokenSecret": {
+				"type": "string",
+				"defaultValue": "salesforcetoken"
+			},
+			"url": {
+				"type": "string",
+				"defaultValue": "https://login.salesforce.com"
+			},
+			"apiversion": {
+				"type": "string",
+				"defaultValue": "53.0"
+			}
+		},
+		"annotations": [],
+		"type": "Salesforce",
+		"typeProperties": {
+			"environmentUrl": "@{linkedService().url}",
+			"username": "@{linkedService().Username}",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Keys",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"keyvaultdnsname": {
+							"value": "@linkedService().keyvault",
+							"type": "Expression"
+						}
+					}
+				},
+				"secretName": {
+					"value": "@linkedService().Secret",
+					"type": "Expression"
+				}
+			},
+			"securityToken": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Keys",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"keyvaultdnsname": {
+							"value": "@linkedService().keyvault",
+							"type": "Expression"
+						}
+					}
+				},
+				"secretName": {
+					"value": "@linkedService().TokenSecret",
+					"type": "Expression"
+				}
+			},
+			"apiVersion": "@{linkedService().apiversion}"
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

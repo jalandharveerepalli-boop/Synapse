@@ -1,0 +1,57 @@
+{
+	"name": "lsAzureMySQLSource",
+	"properties": {
+		"parameters": {
+			"ServerName": {
+				"type": "string",
+				"defaultValue": "20.117.226.16"
+			},
+			"DatabaseName": {
+				"type": "string",
+				"defaultValue": "adventureworks"
+			},
+			"UserName": {
+				"type": "string",
+				"defaultValue": "mdp_reader"
+			},
+			"Secret": {
+				"type": "string",
+				"defaultValue": "mysqlpass"
+			},
+			"KeyVaultDNSName": {
+				"type": "string",
+				"defaultValue": "https://devmdpkv1003.vault.azure.net/"
+			},
+			"Port": {
+				"type": "string",
+				"defaultValue": "33123"
+			}
+		},
+		"annotations": [],
+		"type": "AzureMySql",
+		"typeProperties": {
+			"connectionString": "Server=@{linkedService().ServerName};Port=@{linkedService().Port};Database=@{linkedService().DatabaseName};UID=@{linkedService().UserName};SSLMode=1;UseSystemTrustStore=0",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Keys",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"keyvaultdnsname": {
+							"value": "@linkedService().KeyVaultDNSName",
+							"type": "Expression"
+						}
+					}
+				},
+				"secretName": {
+					"value": "@linkedService().Secret",
+					"type": "Expression"
+				}
+			}
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

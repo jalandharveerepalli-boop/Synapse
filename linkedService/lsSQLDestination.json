@@ -1,0 +1,54 @@
+{
+	"name": "lsSQLDestination",
+	"properties": {
+		"parameters": {
+			"DatabaseName": {
+				"type": "string",
+				"defaultValue": "sndrsddb1403"
+			},
+			"ServerName": {
+				"type": "string",
+				"defaultValue": "sndrsdsq1402.database.windows.net"
+			},
+			"Secret": {
+				"type": "string",
+				"defaultValue": "dbadminpass"
+			},
+			"UserName": {
+				"type": "string",
+				"defaultValue": "mdp_sql_admin"
+			},
+			"keyvault": {
+				"type": "string",
+				"defaultValue": "https://sndrsdkv1401.vault.azure.net/"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=@{linkedService().ServerName};Initial Catalog=@{linkedService().DatabaseName};User ID=@{linkedService().UserName}",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Keys",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"keyvaultdnsname": {
+							"value": "@linkedService().keyvault",
+							"type": "Expression"
+						}
+					}
+				},
+				"secretName": {
+					"value": "@linkedService().Secret",
+					"type": "Expression"
+				}
+			}
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/linkedservices"
+}

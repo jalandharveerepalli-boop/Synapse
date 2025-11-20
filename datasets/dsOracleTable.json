@@ -1,0 +1,78 @@
+{
+	"name": "dsOracleTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "IsOracle",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"Host": {
+					"value": "@dataset().ServerName",
+					"type": "Expression"
+				},
+				"ServiceName": {
+					"value": "@dataset().DatabaseName",
+					"type": "Expression"
+				},
+				"Port": {
+					"value": "@dataset().Port",
+					"type": "Expression"
+				},
+				"UserName": {
+					"value": "@dataset().User",
+					"type": "Expression"
+				},
+				"SecretName": {
+					"value": "@dataset().Secret",
+					"type": "Expression"
+				},
+				"keyvaultdnsname": {
+					"value": "@dataset().keyvaultdnsname",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"Table": {
+				"type": "string"
+			},
+			"ServerName": {
+				"type": "string"
+			},
+			"DatabaseName": {
+				"type": "string"
+			},
+			"Secret": {
+				"type": "string"
+			},
+			"Port": {
+				"type": "string"
+			},
+			"User": {
+				"type": "string"
+			},
+			"keyvaultdnsname": {
+				"type": "string"
+			},
+			"schema": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().Table",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

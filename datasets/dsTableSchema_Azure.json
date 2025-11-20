@@ -1,0 +1,130 @@
+{
+	"name": "dsTableSchema_Azure",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsMDPapp",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"server": {
+					"value": "@dataset().server",
+					"type": "Expression"
+				},
+				"dbname": {
+					"value": "@dataset().db",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"server": {
+				"type": "string"
+			},
+			"db": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "BatchGroupId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "BatchRunId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SourceSchemaType",
+				"type": "varchar"
+			},
+			{
+				"name": "StorageExplorerKey",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "FeedKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TableName",
+				"type": "varchar"
+			},
+			{
+				"name": "SchemaName",
+				"type": "varchar"
+			},
+			{
+				"name": "ScriptHeader",
+				"type": "bit"
+			},
+			{
+				"name": "FieldPosition",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FieldName",
+				"type": "varchar"
+			},
+			{
+				"name": "FieldDataType",
+				"type": "varchar"
+			},
+			{
+				"name": "FieldCreateSQL",
+				"type": "varchar"
+			},
+			{
+				"name": "FieldPrimaryKey",
+				"type": "bit"
+			},
+			{
+				"name": "FieldActive",
+				"type": "bit"
+			},
+			{
+				"name": "FieldActiveChangeTime",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "FieldPersistStaging",
+				"type": "bit"
+			},
+			{
+				"name": "FieldWarehouseName",
+				"type": "varchar"
+			},
+			{
+				"name": "DataFactoryName",
+				"type": "varchar"
+			},
+			{
+				"name": "PipelineName",
+				"type": "varchar"
+			},
+			{
+				"name": "PipelineRunId",
+				"type": "varchar"
+			},
+			{
+				"name": "ScriptInsertTimeStamp",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "temp",
+			"table": "SourceSchema"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

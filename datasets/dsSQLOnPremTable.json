@@ -1,0 +1,78 @@
+{
+	"name": "dsSQLOnPremTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsSQLOnPremSource",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ServerName": {
+					"value": "@dataset().onprem_server",
+					"type": "Expression"
+				},
+				"DBName": {
+					"value": "@dataset().onprem_db",
+					"type": "Expression"
+				},
+				"UserName": {
+					"value": "@dataset().onprem_user",
+					"type": "Expression"
+				},
+				"secret": {
+					"value": "@dataset().onprem_secret",
+					"type": "Expression"
+				},
+				"keyvault": {
+					"value": "@dataset().keyvaultdnsname",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"onprem_server": {
+				"type": "string",
+				"defaultValue": "snddrmrspsq1401.database.windows.net"
+			},
+			"onprem_db": {
+				"type": "string",
+				"defaultValue": "REGIS_POWERAPP_DB"
+			},
+			"onprem_user": {
+				"type": "string",
+				"defaultValue": "HS_READONLY_DATA"
+			},
+			"onprem_secret": {
+				"type": "string",
+				"defaultValue": "powerregispass"
+			},
+			"keyvaultdnsname": {
+				"type": "string",
+				"defaultValue": "https://sndrsdkv1401.vault.azure.net/"
+			},
+			"table": {
+				"type": "string",
+				"defaultValue": "LICHOLD"
+			},
+			"schema": {
+				"type": "string",
+				"defaultValue": "LICENCE"
+			}
+		},
+		"folder": {
+			"name": "SQL"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,21 @@
+{
+	"name": "lsFinOpsADLS",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"parameters": {
+			"storageurl": {
+				"type": "string",
+				"defaultValue": "https://hapdatastorageactdev.dfs.core.windows.net "
+			}
+		},
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "@{linkedService().storageurl}"
+		},
+		"connectVia": {
+			"referenceName": "mdp-shir1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

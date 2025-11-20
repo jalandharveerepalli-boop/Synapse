@@ -1,0 +1,50 @@
+{
+	"name": "lsLocalFileSystem",
+	"properties": {
+		"parameters": {
+			"Host": {
+				"type": "string",
+				"defaultValue": "\\\\eamerfiler05.prodds.ntnl\\lun76\\BRITE\\ESG\\WQNLT_DataMigFiles"
+			},
+			"UserName": {
+				"type": "string",
+				"defaultValue": "PRODDS\\EARegulatoryDP"
+			},
+			"KeySecret": {
+				"type": "string",
+				"defaultValue": "WQLogandTrack"
+			},
+			"KeyVault": {
+				"type": "string",
+				"defaultValue": "https://sndrsdkv1401.vault.azure.net/"
+			}
+		},
+		"annotations": [],
+		"type": "FileServer",
+		"typeProperties": {
+			"host": "@{linkedService().Host}",
+			"userId": "@{linkedService().UserName}",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Keys",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"keyvaultdnsname": {
+							"value": "@linkedService().KeyVault",
+							"type": "Expression"
+						}
+					}
+				},
+				"secretName": {
+					"value": "@linkedService().KeySecret",
+					"type": "Expression"
+				}
+			}
+		},
+		"connectVia": {
+			"referenceName": "SHIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

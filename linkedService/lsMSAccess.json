@@ -1,0 +1,48 @@
+{
+	"name": "lsMSAccess",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"parameters": {
+			"DBName": {
+				"type": "String"
+			},
+			"UserName": {
+				"type": "string"
+			},
+			"KeyVaultDNSName": {
+				"type": "string"
+			},
+			"KeyVaultSecret": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "MicrosoftAccess",
+		"typeProperties": {
+			"connectionString": "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=@{linkedService().DBName};",
+			"authenticationType": "Basic",
+			"userName": "@{linkedService().UserName}",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Keys",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"keyvaultdnsname": {
+							"value": "@linkedService().KeyVaultDNSName",
+							"type": "Expression"
+						}
+					}
+				},
+				"secretName": {
+					"value": "@linkedService().KeyVaultSecret",
+					"type": "Expression"
+				}
+			}
+		},
+		"connectVia": {
+			"referenceName": "SHIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

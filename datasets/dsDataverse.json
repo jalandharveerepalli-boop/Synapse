@@ -1,0 +1,57 @@
+{
+	"name": "dsDataverse",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsDataverse",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ServiceURI": {
+					"value": "@dataset().ServiceURI",
+					"type": "Expression"
+				},
+				"Secret": {
+					"value": "@dataset().Secret",
+					"type": "Expression"
+				},
+				"ServicePrincipal": {
+					"value": "@dataset().ServicePrincipal",
+					"type": "Expression"
+				},
+				"keyvault": {
+					"value": "@dataset().Keyvault",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"ServiceURI": {
+				"type": "string"
+			},
+			"Secret": {
+				"type": "string"
+			},
+			"ServicePrincipal": {
+				"type": "string"
+			},
+			"Keyvault": {
+				"type": "string"
+			},
+			"Entity": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "Other"
+		},
+		"annotations": [],
+		"type": "CommonDataServiceForAppsEntity",
+		"schema": [],
+		"typeProperties": {
+			"entityName": {
+				"value": "@dataset().Entity",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}
