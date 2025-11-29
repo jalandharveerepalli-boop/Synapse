@@ -97,13 +97,25 @@
 							"inputs": [
 								{
 									"referenceName": "ds_api",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"PageNumber": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "Json2",
-									"type": "DatasetReference"
+									"referenceName": "DS_BlobOutput",
+									"type": "DatasetReference",
+									"parameters": {
+										"PageNumber": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
