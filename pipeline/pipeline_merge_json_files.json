@@ -32,7 +32,7 @@
 				}
 			},
 			{
-				"name": "Loop_json_files_from_blob",
+				"name": "ForEach1",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -50,8 +50,8 @@
 					},
 					"activities": [
 						{
-							"name": "Load_json_files_db",
-							"type": "Copy",
+							"name": "DF_ProcessFile",
+							"type": "ExecuteDataFlow",
 							"dependsOn": [],
 							"policy": {
 								"timeout": "0.12:00:00",
@@ -62,113 +62,30 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"source": {
-									"type": "JsonSource",
-									"storeSettings": {
-										"type": "AzureBlobFSReadSettings",
-										"recursive": true,
-										"wildcardFolderPath": "raw",
-										"wildcardFileName": "*.json",
-										"enablePartitionDiscovery": false
-									},
-									"formatSettings": {
-										"type": "JsonReadSettings"
-									}
-								},
-								"sink": {
-									"type": "AzureSqlSink",
-									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false
-								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"mappings": [
-										{
-											"source": {
-												"path": "['id']"
-											},
-											"sink": {
-												"name": "ProductID",
-												"type": "Int32"
-											}
-										},
-										{
-											"source": {
-												"path": "['title']"
-											},
-											"sink": {
-												"name": "Title",
-												"type": "String"
-											}
-										},
-										{
-											"source": {
-												"path": "['description']"
-											},
-											"sink": {
-												"name": "Description",
-												"type": "String"
-											}
-										},
-										{
-											"source": {
-												"path": "['category']"
-											},
-											"sink": {
-												"name": "Category",
-												"type": "String"
-											}
-										},
-										{
-											"source": {
-												"path": "['price']"
-											},
-											"sink": {
-												"name": "Price",
-												"type": "Decimal"
-											}
-										},
-										{
-											"source": {
-												"path": "['rating']"
-											},
-											"sink": {
-												"name": "Rating",
-												"type": "Decimal"
-											}
-										},
-										{
-											"source": {
-												"path": "['stock']"
-											},
-											"sink": {
-												"name": "Stock",
-												"type": "String"
-											}
-										}
-									],
-									"collectionReference": "$['products']"
-								}
-							},
-							"inputs": [
-								{
-									"referenceName": "Json1",
-									"type": "DatasetReference",
+								"dataflow": {
+									"referenceName": "DF_MergePages",
+									"type": "DataFlowReference",
 									"parameters": {
-										"fileName": {
-											"value": "@item().name",
+										"filePath": {
+											"value": "'@{item().name}'",
 											"type": "Expression"
 										}
+									},
+									"datasetParameters": {
+										"JsonSource": {
+											"filePath": {
+												"value": "@item().name",
+												"type": "Expression"
+											}
+										}
 									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "DS_SQLProducts",
-									"type": "DatasetReference"
-								}
-							]
+								},
+								"compute": {
+									"coreCount": 8,
+									"computeType": "General"
+								},
+								"traceLevel": "Fine"
+							}
 						}
 					]
 				}
