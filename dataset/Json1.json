@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "products_20251128.json",
+				"fileName": "page_1.json",
 				"folderPath": "raw",
 				"fileSystem": "sink"
 			}
