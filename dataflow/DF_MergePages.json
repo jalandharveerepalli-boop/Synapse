@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "DS_SQLProducts",
+						"referenceName": "DS_RawJsonFile",
 						"type": "DatasetReference"
 					},
 					"name": "MergeAllJsonOutput"
@@ -65,14 +65,11 @@
 				"     skipDuplicateMapOutputs: true) ~> selectOrder",
 				"selectOrder sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     deletable:false,",
-				"     insertable:true,",
-				"     updateable:false,",
-				"     upsertable:false,",
-				"     format: 'table',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> MergeAllJsonOutput"
+				"     skipDuplicateMapOutputs: true) ~> MergeAllJsonOutput"
 			]
 		}
 	}
