@@ -1,0 +1,9 @@
+{
+	"name": "pipeline_merge_json_files",
+	"properties": {
+		"folder": {
+			"name": "Learning_adf"
+		},
+		"annotations": []
+	}
+}
