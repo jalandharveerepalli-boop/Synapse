@@ -64,7 +64,13 @@
 							"typeProperties": {
 								"dataflow": {
 									"referenceName": "DF_MergePages",
-									"type": "DataFlowReference"
+									"type": "DataFlowReference",
+									"parameters": {
+										"filePath": {
+											"value": "'@{item().name}'",
+											"type": "Expression"
+										}
+									}
 								},
 								"compute": {
 									"coreCount": 8,
