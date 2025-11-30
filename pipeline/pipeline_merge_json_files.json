@@ -50,41 +50,130 @@
 					},
 					"activities": [
 						{
-							"name": "DF_ProcessFile",
-							"type": "ExecuteDataFlow",
+							"name": "If Condition1",
+							"type": "IfCondition",
 							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
 							"userProperties": [],
 							"typeProperties": {
-								"dataflow": {
-									"referenceName": "DF_MergePages",
-									"type": "DataFlowReference",
-									"parameters": {
-										"filePath": {
-											"value": "'@{item().name}'",
-											"type": "Expression"
-										}
-									},
-									"datasetParameters": {
-										"JsonSource": {
-											"filePath": {
-												"value": "@item().name",
-												"type": "Expression"
+								"expression": {
+									"value": "@endswith(item().name, '.json')",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "Copy data1",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "JsonSource",
+												"storeSettings": {
+													"type": "AzureBlobFSReadSettings",
+													"recursive": true,
+													"enablePartitionDiscovery": false
+												},
+												"formatSettings": {
+													"type": "JsonReadSettings"
+												}
+											},
+											"sink": {
+												"type": "AzureSqlSink",
+												"writeBehavior": "insert",
+												"sqlWriterUseTableLock": false
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"mappings": [
+													{
+														"source": {
+															"path": "['id']"
+														},
+														"sink": {
+															"name": "ProductID",
+															"type": "Int32"
+														}
+													},
+													{
+														"source": {
+															"path": "['title']"
+														},
+														"sink": {
+															"name": "Title",
+															"type": "String"
+														}
+													},
+													{
+														"source": {
+															"path": "['description']"
+														},
+														"sink": {
+															"name": "Description",
+															"type": "String"
+														}
+													},
+													{
+														"source": {
+															"path": "['category']"
+														},
+														"sink": {
+															"name": "Category",
+															"type": "String"
+														}
+													},
+													{
+														"source": {
+															"path": "['price']"
+														},
+														"sink": {
+															"name": "Price",
+															"type": "Decimal"
+														}
+													},
+													{
+														"source": {
+															"path": "['rating']"
+														},
+														"sink": {
+															"name": "Rating",
+															"type": "Decimal"
+														}
+													},
+													{
+														"source": {
+															"path": "['stock']"
+														},
+														"sink": {
+															"name": "Stock",
+															"type": "String"
+														}
+													}
+												],
+												"collectionReference": "$['products']"
 											}
-										}
+										},
+										"inputs": [
+											{
+												"referenceName": "Json1",
+												"type": "DatasetReference"
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "DS_SQLProducts",
+												"type": "DatasetReference"
+											}
+										]
 									}
-								},
-								"compute": {
-									"coreCount": 8,
-									"computeType": "General"
-								},
-								"traceLevel": "Fine"
+								]
 							}
 						}
 					]
