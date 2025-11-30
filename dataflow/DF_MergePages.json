@@ -30,6 +30,9 @@
 				}
 			],
 			"scriptLines": [
+				"parameters{",
+				"     filePath as string",
+				"}",
 				"source(output(",
 				"          limit as short,",
 				"          products as (availabilityStatus as string, brand as string, category as string, description as string, dimensions as (depth as double, height as double, width as double), discountPercentage as double, id as short, images as string[], meta as (barcode as long, createdAt as string, qrCode as string, updatedAt as string), minimumOrderQuantity as short, price as double, rating as double, returnPolicy as string, reviews as (comment as string, date as string, rating as short, reviewerEmail as string, reviewerName as string)[], shippingInformation as string, sku as string, stock as short, tags as string[], thumbnail as string, title as string, warrantyInformation as string, weight as short)[],",

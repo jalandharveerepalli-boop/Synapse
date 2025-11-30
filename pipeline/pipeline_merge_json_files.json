@@ -50,7 +50,7 @@
 					},
 					"activities": [
 						{
-							"name": "Data flow1",
+							"name": "DF_ProcessFile",
 							"type": "ExecuteDataFlow",
 							"dependsOn": [],
 							"policy": {
