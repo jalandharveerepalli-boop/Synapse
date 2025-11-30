@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "Json_pages",
+						"referenceName": "DS_RawJsonFile",
 						"type": "DatasetReference"
 					},
 					"name": "JsonSource"
