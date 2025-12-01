@@ -1,0 +1,143 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Orders",
+						"type": "DatasetReference"
+					},
+					"name": "Orders"
+				},
+				{
+					"dataset": {
+						"referenceName": "Customers",
+						"type": "DatasetReference"
+					},
+					"name": "Customers"
+				},
+				{
+					"dataset": {
+						"referenceName": "products",
+						"type": "DatasetReference"
+					},
+					"name": "Products"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "RejectedTable",
+						"type": "DatasetReference"
+					},
+					"name": "RejectedTable"
+				}
+			],
+			"transformations": [
+				{
+					"name": "flatten"
+				},
+				{
+					"name": "derivedColumn"
+				},
+				{
+					"name": "joinProducts"
+				},
+				{
+					"name": "select"
+				},
+				{
+					"name": "CheckProducHasNulls"
+				},
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "window1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          customerId as string,",
+				"          orderId as string,",
+				"          orderLines as (price as double, productId as string, qty as short)[],",
+				"          orderTimestamp as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'singleDocument') ~> Orders",
+				"source(output(",
+				"          customerId as string,",
+				"          name as string,",
+				"          email as string,",
+				"          city as string,",
+				"          signupDate as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Customers",
+				"source(output(",
+				"          productId as string,",
+				"          productName as string,",
+				"          category as string,",
+				"          vatRate as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Products",
+				"Orders foldDown(unroll(orderLines),",
+				"     mapColumn(",
+				"          orderId,",
+				"          customerId,",
+				"          productId = orderLines.productId,",
+				"          qty = orderLines.qty,",
+				"          price = orderLines.price,",
+				"          orderTimestamp",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten",
+				"flatten derive(totalPrice = qty*price,",
+				"          orderDate = toDate(orderTimestamp)) ~> derivedColumn",
+				"derivedColumn, Products join(flatten@productId == Products@productId,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joinProducts",
+				"joinProducts select(mapColumn(",
+				"          orderId,",
+				"          customerId,",
+				"          productId = flatten@productId,",
+				"          qty,",
+				"          price,",
+				"          totalPrice,",
+				"          orderDate,",
+				"          productName,",
+				"          category,",
+				"          vatRate",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select",
+				"select split(isNull(productId),",
+				"     disjoint: false) ~> CheckProducHasNulls@(badOrders, ValidOrders)",
+				"CheckProducHasNulls@ValidOrders aggregate(groupBy(orderId),",
+				"     totalOrderValue = sum(qty),",
+				"          totalItems = count(orderId),",
+				"          maxLineValue = max(vatRate)) ~> aggregate1",
+				"aggregate1 window() ~> window1",
+				"CheckProducHasNulls@badOrders sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> RejectedTable"
+			]
+		}
+	}
+}
