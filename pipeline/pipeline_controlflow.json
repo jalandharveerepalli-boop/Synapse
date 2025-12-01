@@ -1,0 +1,34 @@
+{
+	"name": "pipeline_controlflow",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "strArray",
+					"value": [
+						"1",
+						"2",
+						"3"
+					]
+				}
+			}
+		],
+		"variables": {
+			"strArray": {
+				"type": "Array"
+			}
+		},
+		"folder": {
+			"name": "Learning_adf"
+		},
+		"annotations": []
+	}
+}
