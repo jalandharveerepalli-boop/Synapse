@@ -1,5 +1,5 @@
 {
-	"name": "ListJsonFiles",
+	"name": "ListFiles",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ADLSGen2",
