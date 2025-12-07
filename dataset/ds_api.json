@@ -1,0 +1,23 @@
+{
+	"name": "ds_api",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "REST_API_json",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"PageNumber": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "products?page=@{dataset().PageNumber}",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	}
+}

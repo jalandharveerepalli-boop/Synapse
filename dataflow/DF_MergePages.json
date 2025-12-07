@@ -1,0 +1,92 @@
+{
+	"name": "DF_MergePages",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_RawJsonFile",
+						"type": "DatasetReference"
+					},
+					"name": "JsonSource"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_SQLProducts",
+						"type": "DatasetReference"
+					},
+					"name": "MergeAllJsonOutput"
+				}
+			],
+			"transformations": [
+				{
+					"name": "flattenProducts"
+				},
+				{
+					"name": "selectOrder"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     filePath as string",
+				"}",
+				"source(output(",
+				"          limit as short,",
+				"          products as (availabilityStatus as string, brand as string, category as string, description as string, dimensions as (depth as double, height as double, width as double), discountPercentage as double, id as short, images as string[], meta as (barcode as long, createdAt as string, qrCode as string, updatedAt as string), minimumOrderQuantity as short, price as double, rating as double, returnPolicy as string, reviews as (comment as string, date as string, rating as short, reviewerEmail as string, reviewerName as string)[], shippingInformation as string, sku as string, stock as short, tags as string[], thumbnail as string, title as string, warrantyInformation as string, weight as short)[],",
+				"          skip as boolean,",
+				"          total as short",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine') ~> JsonSource",
+				"JsonSource foldDown(unroll(products),",
+				"     mapColumn(",
+				"          id = products.id,",
+				"          price = products.price,",
+				"          rating = products.rating,",
+				"          stock = products.stock,",
+				"          category = products.category,",
+				"          description = products.description,",
+				"          title = products.title",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flattenProducts",
+				"flattenProducts select(mapColumn(",
+				"          id,",
+				"          title,",
+				"          description,",
+				"          category,",
+				"          price,",
+				"          rating,",
+				"          stock",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectOrder",
+				"selectOrder sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ProductID as integer,",
+				"          Title as string,",
+				"          Description as string,",
+				"          Category as string,",
+				"          Price as decimal(6,2),",
+				"          Rating as decimal(6,2),",
+				"          Stock as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     batchSize: 10000,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> MergeAllJsonOutput"
+			]
+		}
+	}
+}

@@ -1,0 +1,136 @@
+{
+	"name": "PL_API_Pagination",
+	"properties": {
+		"activities": [
+			{
+				"name": "CallAPI_Page1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://dummyjson.com/products?page=1"
+				}
+			},
+			{
+				"name": "SetPageCount",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "CallAPI_Page1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "pageCount",
+					"value": {
+						"value": "@activity('CallAPI_Page1').output.total",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "LoopPages",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "SetPageCount",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@range(1, variables('pageCount'))",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "RestSource",
+									"httpRequestTimeout": "00:01:40",
+									"requestInterval": "00.00:00:00.010",
+									"requestMethod": "GET",
+									"paginationRules": {
+										"supportRFC5988": "true"
+									}
+								},
+								"sink": {
+									"type": "JsonSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "JsonWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_api",
+									"type": "DatasetReference",
+									"parameters": {
+										"PageNumber": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_BlobOutput",
+									"type": "DatasetReference",
+									"parameters": {
+										"PageNumber": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"pageCount": {
+				"type": "Integer"
+			}
+		},
+		"folder": {
+			"name": "Learning_adf"
+		},
+		"annotations": []
+	}
+}

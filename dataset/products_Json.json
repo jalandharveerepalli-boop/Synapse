@@ -1,0 +1,23 @@
+{
+	"name": "products_Json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLSGen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "products_@{formatDateTime(utcNow(),'yyyyMMdd')}.json",
+					"type": "Expression"
+				},
+				"folderPath": "raw",
+				"fileSystem": "sink"
+			}
+		},
+		"schema": {}
+	}
+}

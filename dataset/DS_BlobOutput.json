@@ -1,0 +1,28 @@
+{
+	"name": "DS_BlobOutput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLSGen2",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"PageNumber": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "page_@{dataset().PageNumber}.json",
+					"type": "Expression"
+				},
+				"folderPath": "raw",
+				"fileSystem": "sink"
+			}
+		},
+		"schema": {}
+	}
+}
